@@ -1,0 +1,11 @@
+<!--users/templates/registration/login.html-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Welcome</h2>
+<form id="logout-form" method="post" action="{% url 'dwitter:login' %}">
+    {% csrf_token %}
+    <input type="submit" value="Login">
+</form>
+{% endblock %}

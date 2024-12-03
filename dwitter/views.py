@@ -47,3 +47,9 @@ def profile(request, pk):
             current_user_profile.follows.remove(profile)
         current_user_profile.save()
     return render(request, "dwitter/profile.html", {"profile": profile})
+
+def index(request):
+    if request.user.is_authenticated:
+        return redirect("dwitter:dashboard")
+    else:
+        return render(request, "dwitter/index.html")
