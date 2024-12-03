@@ -1,0 +1,19 @@
+<!--users/templates/registration/login.html-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Login</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+</form>
+</br></br></br>
+<a href="{% url 'dwitter:dashboard' %}">Back to dashboard</a></br></br></br>
+<a href="{% url 'dwitter:password_reset' %}">Reset password</a></br></br></br>
+</br></br></br>
+bljaslidjhflkhdfh</br></br></br>
+</br></br></br>dafdd
+{% endblock %}
