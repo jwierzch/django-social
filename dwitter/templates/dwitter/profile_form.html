@@ -1,0 +1,39 @@
+<!--users/templates/registration/profile_form.html-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!--Account Options Column (logout password-reset etc)-->
+<h2>Profile Update {{ user.username|default:'Guest' }}!</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<div class="column">
+    <div class="block">
+        <div class="block">
+            <div class="columns">
+                <div class="column">
+                    <form method="post" action="{% url 'dwitter:password_reset' %}">
+                        {% csrf_token %}
+                        <button type='submit' class="button is-danger is-outlined is-fullwidth" >Password Reset</button>
+                    </form>
+                </div>
+                <div class="column">
+                    <form method="post" action="{% url 'dwitter:logout' %}">
+                        {% csrf_token %}
+                        <button type='submit' class="button is-info is-outlined is-fullwidth" >Logout</button>
+                    </form>
+                </div>
+                <div class="column">
+                    <form method="post" action="{% url 'dwitter:dashboard' %}">
+                        {% csrf_token %}
+                        <button type='submit' class="button is-info is-outlined is-fullwidth" >Back Dashboard</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

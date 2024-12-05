@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dweet
+from .models import Dweet, Profile, gimage
 
 class DweetForm(forms.ModelForm):
     body = forms.CharField(
@@ -15,4 +15,19 @@ class DweetForm(forms.ModelForm):
 
     class Meta:
         model = Dweet
+        fiels = ("body", )
         exclude = ("user", )
+
+class ProfileForm(forms.ModelForm):
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    
+    class Meta:
+        model = Profile
+        fields = ['avatar']
+
+class gimageForm(forms.ModelForm):
+    gimage = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    class Meta:
+        model = gimage
+        fields = ('gimage', )
+        exclude = ('user', )

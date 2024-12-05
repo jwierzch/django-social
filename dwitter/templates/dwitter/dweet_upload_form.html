@@ -1,0 +1,29 @@
+<!--users/templates/registration/dweet_form.html-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!--Account Options Column (logout password-reset etc)-->
+    <div class="block">
+        <div class="block">
+            <h2 class="title is-2">Add a Dweet</p>
+        </div>
+        <div class="block">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button is-info is-dark is-fullwidth is-medium mt-5"
+                        type="submit">Dweet
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="column">
+        <form method="post" action="{% url 'dwitter:dashboard' %}">
+            {% csrf_token %}
+            <button type='submit' class="button is-info is-outlined is-fullwidth" >Back Dashboard</button>
+        </form>
+    </div>
+
+
+{% endblock content %}

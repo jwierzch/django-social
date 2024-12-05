@@ -11,3 +11,11 @@ python manage.py runserver
 
 also useful
 python manage.py changepassword username
+
+
+other useful things
+https://www.devhandbook.com/django/user-profile/
+https://stackoverflow.com/questions/23922289/django-pil-save-thumbnail-version-right-when-image-is-uploaded
+
+had to switch from create to get or crate in the signal
+Profile.objects.get_or_create(user=instance)

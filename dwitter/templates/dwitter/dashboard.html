@@ -6,7 +6,10 @@
 <div class="columns">
     <!--Account Options Column (logout password-reset etc)-->
     <div class="column">
-        Hello, {{ user.username|default:'Guest' }}!
+        <div class="block">
+            <img src="{{ user.profile.avatar.url }}" class="image is-rounded">
+            <h2 class="account-heading">Hello: {{ user.username }}</h2>
+        </div>
         {% if user.is_authenticated %}
         <div class="block">
             <div class="block">
@@ -14,13 +17,13 @@
                     <div class="column">
                         <form method="post" action="{% url 'dwitter:password_reset' %}">
                             {% csrf_token %}
-                            <button type='submit' class="button is-warning is-fullwidth" >Password Reset</button>
+                            <button type='submit' class="button is-danger is-outlined is-fullwidth" >Password Reset</button>
                         </form>
                     </div>
                     <div class="column">
                         <form method="post" action="{% url 'dwitter:logout' %}">
                             {% csrf_token %}
-                            <button type='submit' class="button is-info is-fullwidth" >Logout</button>
+                            <button type='submit' class="button is-info is-outlined is-fullwidth" >Logout</button>
                         </form>
                     </div>
                 </div>
@@ -46,10 +49,26 @@
                 </div>
             </div>
         </div>
+        <div class="block">
+            <form action="{% url 'dwitter:profile_update' request.user.profile.id %}">
+                <input type="submit" class="button is-warning is-dark is-fullwidth" value="profile update" />
+            </form>
+        </div>
+        <div class="block">
+            <form action="{% url 'dwitter:gimage_upload' %}">
+                <input type="submit" class="button is-warning is-dark is-fullwidth" value="gimage" />
+            </form>
+        </div>
+        <div class="block">
+            <form action="{% url 'dwitter:dweet_upload' request.user.profile.id %}">
+                <input type="submit" class="button is-warning is-dark is-fullwidth" value="Dweet" />
+            </form>
+        </div>
     </div>
-    <!-- Add Dweet Column-->
+    <!-- list of followed dweets Column-->
     <div class="column is-one-third">
         <div class="block">
+            dweets
             {% for dweet in dweets %}
             <div class="box">
                 {{dweet.body}}
@@ -60,28 +79,19 @@
         {% endfor %}    
         </div>
     </div>
-    <!-- Add Dweet Column-->
-    <div class="column is-one-third">
+    <div class="column is-one-third"> 
         <div class="block">
-            <div class="block">
-                <h2 class="title is-2">Add a Dweet</p>
-            </div>
-            <div class="block">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button class="button is-info is-dark is-fullwidth is-medium mt-5"
-                            type="submit">Dweet
-                    </button>
-                </form>
-            </div>
+            gimages
+        {% for gimage in gimages %}
+            <img src="media/{{gimage.gimage}}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
+        {% endfor %}    
         </div>
-
     </div>
-
         {% else %}
             <a href="{% url 'dwitter:login' %}">Login</a>
         {% endif %}
     </div>
 </div>
 {% endblock content %}
+
+
