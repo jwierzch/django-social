@@ -2,6 +2,8 @@ implementation of the walkthrough from: https://realpython.com/django-social-net
 Customized for my own curiosity as well as I had a big issue with the password reset done template not working, resovled via: #https://stackoverflow.com/questions/66406530/keep-getting-this-error-of-reverse-for-password-reset-confirm-not-found-pass
 added ability to upload images for sharing
 
+![Alt text](https://github.com/jwierzch/django-social/blob/main/dashboard.png?raw=true "dashboard")
+
 TODO
 pin pics to profiles, ability to manage own gallery
 
