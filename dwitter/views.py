@@ -15,8 +15,6 @@ def dashboard(request):
         ).order_by("-created_at")
         
         gimages = gimage.objects.all()
-        print('test')
-        print(gimages)
         return render(request, "dwitter/dashboard.html", {"dweets": followed_dweets, "gimages": gimages},)
     else:
         return redirect('dwitter:login')
@@ -50,6 +48,13 @@ def index(request):
     else:
         return render(request, "dwitter/index.html")
     
+def thumb(request):
+    return render(request, "dwitter/thumb.html")
+
+def gimages(request,pk):
+    gimage_obj = gimage.objects.get(id=pk) 
+    return render(request, "dwitter/gimages.html", {'gimage': gimage_obj})
+
 @login_required    
 def profile_update(request, pk):
     profile = Profile.objects.get(pk=pk)
@@ -64,40 +69,14 @@ def profile_update(request, pk):
 
 @login_required    
 def dweet_upload(request, pk):
-    profile = Profile.objects.get(pk=pk)
+    form = DweetForm(request.POST or None)
     if request.method == 'POST':
-        form = DweetForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()
+            dweet = form.save(commit=False)
+            dweet.user = request.user
+            dweet.save()
             return redirect("dwitter:dashboard")
-    else:
-        form = DweetForm(instance=profile)
-    return render(request, 'dwitter/dweet_upload_form.html', {'form': form, "profile": profile})
-
-# @login_required    
-# def gimage_upload(request, pk):
-#     profile = Profile.objects.get(pk=pk)
-#     if request.method == 'POST':
-#         form = gimageForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-            
-#             form.save(commit=False)
-#             form.user = request.user
-#             form.save()
-#             gimg_obj =form.instance
-#             #gimg_obj = form.files['gimage']
-#             #file_contents = gimg_obj.read()
-
-#             #file_contents = gimg_obj.file
-#             #file_type = gimg_obj.content_type
-#             #file_name = gimg_obj.name
-
-           
-#             #return HttpResponse(f"Image uploaded successfully! {gimg_obj}")
-#             return render(request, 'dwitter/gimage_upload_form.html', {'form': form, 'gimg_obj':gimg_obj})
-#     else:
-#         form = gimageForm()
-#     return render(request, 'dwitter/gimage_upload_form.html', {'form': form})
+    return render(request, 'dwitter/dweet_upload_form.html', {'form': form})
 
 @login_required    
 def gimage_upload(request):

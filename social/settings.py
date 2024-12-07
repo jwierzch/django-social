@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dwitter.apps.DwitterConfig',
+    'easy_thumbnails',
 ]
 
 
@@ -126,7 +127,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "social/static"),
+]
 
+STATIC_ROOT = 'static/'
 STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Directory where uploaded media is saved.
 MEDIA_URL = '/media/' # Public URL at the browser
@@ -136,3 +141,9 @@ FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 
 ]
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (75, 75), 'crop': True},
+    },
+}

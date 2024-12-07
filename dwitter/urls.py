@@ -2,7 +2,7 @@
 
 from django.urls import path
 from django.conf.urls import include
-from .views import dashboard, profile_list, profile,index,profile_update, gimage_upload, dweet_upload
+from .views import dashboard, profile_list, profile,index,profile_update, gimage_upload, dweet_upload, thumb, gimages
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.conf.urls.static import static
@@ -21,4 +21,6 @@ urlpatterns = [
     path("profile_update/<int:pk>", profile_update, name="profile_update"),
     path("gimage_upload", gimage_upload, name="gimage_upload"),
     path("dweet_upload/<int:pk>", dweet_upload, name="dweet_upload"),
+    path("thumb", thumb, name="thumb"),
+    path('gimages/<int:pk>', gimages, name='gimages'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

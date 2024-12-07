@@ -15,7 +15,7 @@ class DweetForm(forms.ModelForm):
 
     class Meta:
         model = Dweet
-        fiels = ("body", )
+        fields = ("body", )
         exclude = ("user", )
 
 class ProfileForm(forms.ModelForm):

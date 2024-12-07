@@ -3,11 +3,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load thumbnail %}
 <div class="columns">
     <!--Account Options Column (logout password-reset etc)-->
     <div class="column">
         <div class="block">
-            <img src="{{ user.profile.avatar.url }}" class="image is-rounded">
+            <img src="{% thumbnail user.profile.avatar 250x250 crop %}" style="border-radius:50%" class="is-rounded">
             <h2 class="account-heading">Hello: {{ user.username }}</h2>
         </div>
         {% if user.is_authenticated %}
@@ -80,13 +81,20 @@
         </div>
     </div>
     <div class="column is-one-third"> 
+        <img src="{{ profile.photo|thumbnail_url:'avatar' }}" alt="" />
         <div class="block">
             gimages
-        {% for gimage in gimages %}
-            <img src="media/{{gimage.gimage}}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
-        {% endfor %}    
+            <div style="width:100%"></div>
+                {% load static %} 
+                <link rel="stylesheet" href="{% static 'social/css/style.css' %}"> 
+                {% for gimage in gimages %} 
+                    <div style="float:left; width:200px; height:200px;">                   
+                            <a href="{% url 'dwitter:gimages' gimage.id %} "><img src="{{ gimage.gimage.url }}" class="thumbnail" /></a>
+                    </div>
+                {% endfor %}   
+            </div>
         </div>
-    </div>
+    </div> 
         {% else %}
             <a href="{% url 'dwitter:login' %}">Login</a>
         {% endif %}
